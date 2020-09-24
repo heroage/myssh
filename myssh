@@ -68,10 +68,9 @@ do
     num=$((num-1))
 
     proto=${dev_proto_array[${num}]}
-    user=${username}
     host=${dev_ip_array[${num}]}
 
-    ./conn.exp ${proto} ${user} ${host} ${password}
+    ./conn.exp ${proto} ${username} ${host} ${password}
 
 done
 
