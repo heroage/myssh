@@ -13,9 +13,11 @@ if {$proto == "ssh"} {
 	send "${password}\r"
 } else {
 	spawn ${proto} ${host}
-	expect "*sername*"
+	expect "*sername*" { send_user "" } \
+        timeout { send_error "${host} 连接失败，请重新选择连接设备 ...\n" ; sleep 2; exit}
 	send "${user}\r"
-	expect "*assword*"
+	expect "*assword*" { send_user "" } \
+        timeout { send_error "${host} 连接失败，请重新选择连接设备 ...\n" ; sleep 2; exit}
 	send "${password}\r"
 }
 
