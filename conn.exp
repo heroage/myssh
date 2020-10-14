@@ -7,18 +7,18 @@ set password [lindex $argv 3]
 
 set timeout 5
 if {$proto == "ssh"} {
-	spawn ${proto} ${user}@${host}
-	expect "*assword*" { send_user "\n${host} 连接成功，准备登陆，请稍候 ...\n" } \
+        spawn ${proto} ${user}@${host}
+        expect "*assword*" { send_user "\n${host} 连接成功，准备登陆，请稍候 ...\n" } \
         timeout { send_error "${host} 连接失败，请重新选择连接设备 ...\n" ; sleep 2; exit}
-	send "${password}\r"
+        send "${password}\r"
 } else {
-	spawn ${proto} ${host}
-	expect "*sername*" { send_user "" } \
+        spawn ${proto} ${host}
+        expect "*sername*" { send_user "\n${host} 校验用户名，请稍候 ...\n" } \
         timeout { send_error "${host} 连接失败，请重新选择连接设备 ...\n" ; sleep 2; exit}
-	send "${user}\r"
-	expect "*assword*" { send_user "" } \
+        send "${user}\r"
+        expect "*assword*" { send_user "\n${host} 连接成功，准备登陆，请稍候 ...\n" } \
         timeout { send_error "${host} 连接失败，请重新选择连接设备 ...\n" ; sleep 2; exit}
-	send "${password}\r"
+        send "${password}\r"
 }
 
 interact
